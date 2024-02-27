@@ -1,1 +1,1 @@
-# CS202-Assignments
+# CS202 - Design and Analysis of Algorithms (Assignments)
