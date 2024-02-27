@@ -1,28 +1,31 @@
-def lcs(X, Y, m, n):
- 
-    # Declaring the array for storing the dp values
-    L = [[None]*(n+1) for i in range(m+1)]
- 
-    # Following steps build L[m+1][n+1] in bottom up fashion
-    # Note: L[i][j] contains length of LCS of X[0..i-1]
-    # and Y[0..j-1]
-    for i in range(m+1):
-        for j in range(n+1):
-            if i == 0 or j == 0:
-                L[i][j] = 0
-            elif X[i-1] == Y[j-1]:
-                L[i][j] = L[i-1][j-1] + 1
-            else:
-                L[i][j] = max(L[i-1][j], L[i][j-1])
- 
-    # L[m][n] contains the length of LCS of X[0..n-1] & Y[0..m-1]
-    return L[m][n]
+import random
 
-# Driver code
-if __name__ == '__main__':
-    a = [239, 27, 116, 26, 55, 214, 243, 43, 150, 96, 150, 45, 175, 236, 150, 206, 43, 115, 189, 32, 254, 255, 239, 16, 234, 254, 231, 234, 243, 220, 250, 242, 254, 153, 209, 225, 214, 32, 194, 185, 217, 249, 55, 250, 171, 209, 220, 254, 190, 94, 55, 147, 96, 104, 32]
-    b = [27, 26, 147, 115, 243, 239, 16, 43, 234, 96, 190, 32, 45, 209, 175, 150, 206, 116, 254, 104, 189, 225, 236, 255, 231, 234, 254, 250, 254, 209, 214, 185, 217, 171, 249, 231, 220, 250, 94, 242, 153, 96, 185, 250, 55, 194, 32, 255]
+# Assuming the denominations and their quantities are given
+denom = [(1,  10), (2,  10), (3,  13), (7,  17), (14,  14), (29,  18), (57,  20), (115,  12), (231,  17), (462,  12)]
 
-    m = len(a)
-    n = len(b)
-    print("Length of LCS is", lcs(a, b, m, n))
+# Initialize the minimum number of coins needed for each amount up to n
+n =  7000
+min_coin_with_plan = [None] * (n +  1)
+min_coin_with_plan[0] = (0, [0] * len(denom))  # No coins needed for  0
+
+# Iterate through each denomination
+for i in range(len(denom)):
+    for j in range(1, n +  1):
+        if j >= denom[i][0] and min_coin_with_plan[j - denom[i][0]] is not None:
+            # Check if using the current denomination is better
+            if min_coin_with_plan[j] is None or min_coin_with_plan[j - denom[i][0]][0] +  1 < min_coin_with_plan[j][0]:
+                # Create a new plan using the current denomination
+                new_plan = min_coin_with_plan[j - denom[i][0]][1].copy()
+                new_plan[i] +=  1  # Increase the count of the current denomination
+                min_coin_with_plan[j] = (min_coin_with_plan[j - denom[i][0]][0] +  1, new_plan)
+            elif min_coin_with_plan[j - denom[i][0]][0] +  1 == min_coin_with_plan[j][0]:
+                # If the number of coins is the same, add the new plan
+                new_plan = min_coin_with_plan[j - denom[i][0]][1].copy()
+                new_plan[i] +=  1
+                min_coin_with_plan[j][1].append(new_plan)
+
+# For n =  6006, find the minimum number of coins
+if min_coin_with_plan[6005] is not None:
+    print(f"Minimum number of coins for  6006: {min_coin_with_plan[6006][0]}")
+else:
+    print("No solution found for  6006.")
