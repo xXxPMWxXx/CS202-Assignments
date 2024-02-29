@@ -22,7 +22,7 @@ class MinCoin:
         self.plan.append(p)
 
 m = len(denom)
-n = 6006
+n = 100
 
 min_coin_with_plan = [None] * (n + 1)
 min_coin_with_plan[0] = MinCoin(0, [0] * m)
@@ -35,14 +35,13 @@ min_coin_with_plan[0] = MinCoin(0, [0] * m)
 ## As in this case it will used all the 12 coin of 462, , the code will look for plan for 5544, which will use 12 coin of 462. Then it will go check with the supply (if p[i] < denom[i][1]:) 
 ## which will not met, then it will lead to no solution => min_coin_with_plan[6006] will be NONE. Which the correct solution should be 12 coin of 462 and 2 coin of 231 , min_coin_with_plan[6006].num_coin = 14
 ## To fix the bug for min_coin_with_plan, instead of starting from 0 to m -1, start from m - 1 to 0, so that when j = 6006, and all the supply for the largest is used.
-## As the result, the code will consider the largest code first and then the smallest coin, which is similar with the greedy approach.
+## As the result, the code will consider the largest coin first and then the smallest coin, which is similar with the greedy approach.
 ## Unlike the current code, when all the supply for the largest is used, that is no way for it to consider the smaller value coin, as i cannot go back, since it is start from 0 to m - 1
 ################################################################
 # Ending of explanation the min_coin_with_plan bug 
 ################################################################
 
 for i in range(m - 1, -1, -1): ### Proposed correction for min_coin_with_plan
-
 # for i in range(m): # suppose we already have solutions using denom[0], denom[1], ..., denom[i-1], now we consider using denom[i]
     for j in range(1, n+1): # consider the min coin problem with sum j cents
         if j >= denom[i][0] and min_coin_with_plan[j - denom[i][0]] is not None: # is it possible to use denom[i][0]? if yes, we can make up j cents by putting 1 coin of denom[i][0] and the min coin solution for j-denom[i][0]

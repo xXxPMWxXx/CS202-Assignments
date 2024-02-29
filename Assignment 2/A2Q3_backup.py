@@ -22,7 +22,7 @@ class MinCoin:
         self.plan.append(p)
 
 m = len(denom)
-n = 2000
+n = 6006
 
 min_coin_with_plan = [None] * (n + 1)
 min_coin_with_plan[0] = MinCoin(0, [0] * m)
