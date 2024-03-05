@@ -22,7 +22,7 @@ class MinCoin:
         self.plan.append(p)
 
 m = len(denom)
-n = 6006
+n = 10
 
 min_coin_with_plan = [None] * (n + 1)
 min_coin_with_plan[0] = MinCoin(0, [0] * m)
@@ -40,6 +40,9 @@ for i in range(m): # suppose we already have solutions using denom[0], denom[1],
                         p_new[i] += 1 # add one coin of denom[i][0]
                         min_coin_with_plan[j].add_plan(p_new)
 
+for i in range(1, n+1):
+    if min_coin_with_plan[i] is not None:
+        print(i, min_coin_with_plan[i].num_coin, min_coin_with_plan[i].plan)
 '''
 # may print out and check
 for i in range(1, n+1):

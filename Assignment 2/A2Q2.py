@@ -1,7 +1,7 @@
 import sys
 
 lcslen = 0
-# Method to get the longest bitonic sequence
+# Method to get the longest bitonic sequence, refer from : https://takeuforward.org/data-structure/longest-bitonic-subsequence-dp-46/
 # Overall Time Complexity for longest_bitonic_subsequence method is : O(n^2), where n is the length of nums
 def longest_bitonic_subsequence(nums):
     n = len(nums)
@@ -50,7 +50,7 @@ def lcs(arr1, arr2, len1, len2, i, j,dp):
 # where 'u' is the length of the unique elements, when two input arrays are combined
 # 'm' is the length of array 1
 # 'n' is the length of array 2
-# refer from https://www.geeksforgeeks.org/print-longest-common-sub-sequences-lexicographical-order/
+# refer from https://www.geeksforgeeks.org/print-longest-common-sub-sequences-lexicographical-order/ and chatgpt
 def getAllSubsequences(arr1, arr2, len1, len2, data, indx1, indx2, currlcs, dp, highest_common):
     if currlcs == lcslen:
         # To update the highest common subsequence
