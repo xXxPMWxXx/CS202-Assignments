@@ -53,7 +53,8 @@ print(combs)
 #     gen_comb2(n, m, 0, m, [])
 
 
-# refer from combinatorial number system 
+# refer from combinatorial number system : https://math.stackexchange.com/questions/1227409/indexing-all-combinations-without-making-list
+# and asked chatGPT and phind on how can apply recursion, but the code given have bugs, then I based on the recursion code from chatGPT and the logic from the online resources, debug and modified accordingly.
 def find_i_comb_recursive(i, n, m, index=None,current_comb=None, previous_number=None):
     if index == None: # initalize variables
         index = i
