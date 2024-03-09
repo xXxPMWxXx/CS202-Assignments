@@ -25,7 +25,7 @@ def longest_bitonic_subsequence(nums):
         decreasing[i] = decreasing[i] + 1
 
     # check the max for increasing and decreasing
-    max_lbs = 1
+    max_lbs = -1
     # Time complexity: O(n)
     for i in range(n):
         max_lbs = max(max_lbs, increasing[i] + decreasing[i] - 1)
@@ -50,19 +50,24 @@ def lcs(arr1, arr2, len1, len2, i, j,dp):
 # where 'u' is the length of the unique elements, when two input arrays are combined
 # 'm' is the length of array 1
 # 'n' is the length of array 2
-# refer from https://www.geeksforgeeks.org/print-longest-common-sub-sequences-lexicographical-order/ and chatgpt
+# refer from https://www.geeksforgeeks.org/print-longest-common-sub-sequences-lexicographical-order/ 
+
 def getAllSubsequences(arr1, arr2, len1, len2, data, indx1, indx2, currlcs, dp, highest_common):
+    # When get all the LCS, check the length and compare them to get the highest LBS
     if currlcs == lcslen:
         # To update the highest common subsequence
         current_common_count = longest_bitonic_subsequence(data[:currlcs])
+        # Chatgpt : Asked why for my highest_common variable is not updated(at the start I use integer data type), then it suggestted to use Array instead 
+        # because python handles variable scope and mutability, especially when passing arguments to function. As Integer is an immutable type.
         if current_common_count > highest_common[0]:
             highest_common[0] = current_common_count
         return
 
-    # combine the two arrays and get all the unique elements
-    unique_elements = sorted(set(arr1[indx1:]) & set(arr2[indx2:]))
-    # Time complexity for the nested loops : O(len_of_unique_elements * len1 * len2)
-    for num in unique_elements:
+    # combine the two arrays and get all the intersect elements => with help from chatGPT asked: How can I change the loop from 'a' to 'z' based on the two arrays input I have
+    intersect_elements = sorted(set(arr1[indx1:]) & set(arr2[indx2:]))
+
+    # Time complexity for the nested loops : O(len_of_intersect_elements * len1 * len2)
+    for num in intersect_elements:
         done = False
         for i in range(indx1, len1):
             if num == arr1[i]:
