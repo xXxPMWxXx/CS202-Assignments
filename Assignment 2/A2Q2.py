@@ -1,7 +1,7 @@
 import sys
 
 lcslen = 0
-# Method to get the longest bitonic sequence, refer from : https://takeuforward.org/data-structure/longest-bitonic-subsequence-dp-46/
+# Method to get the longest bitonic sequence, refer from : https://takeuforward.org/data-structure/longest-bitonic-subsequence-dp-46/ , https://www.techiedelight.com/longest-bitonic-subsequence/
 # Overall Time Complexity for longest_bitonic_subsequence method is : O(n^2), where n is the length of nums
 def longest_bitonic_subsequence(nums):
     n = len(nums)
@@ -25,7 +25,7 @@ def longest_bitonic_subsequence(nums):
         decreasing[i] = decreasing[i] + 1
 
     # check the max for increasing and decreasing
-    max_lbs = -1
+    max_lbs = 0
     # Time complexity: O(n)
     for i in range(n):
         max_lbs = max(max_lbs, increasing[i] + decreasing[i] - 1)
@@ -46,12 +46,11 @@ def lcs(arr1, arr2, len1, len2, i, j,dp):
         dp[i][j] = max(lcs(arr1, arr2, len1, len2, i + 1, j,dp), lcs(arr1, arr2, len1, len2, i, j + 1,dp))
     return dp[i][j]
 
-# Overall Time Complexity : O(u * m * n); 
-# where 'u' is the length of the unique elements, when two input arrays are combined
+# Overall Time Complexity : O(i * m * n); 
+# where 'i' is the length of the intersect elements of the two input arrays;
 # 'm' is the length of array 1
 # 'n' is the length of array 2
 # refer from https://www.geeksforgeeks.org/print-longest-common-sub-sequences-lexicographical-order/ 
-
 def getAllSubsequences(arr1, arr2, len1, len2, data, indx1, indx2, currlcs, dp, highest_common):
     # When get all the LCS, check the length and compare them to get the highest LBS
     if currlcs == lcslen:
@@ -79,7 +78,6 @@ def getAllSubsequences(arr1, arr2, len1, len2, data, indx1, indx2, currlcs, dp, 
                         break
                 if done:
                     break
-
 
 def LCMS(arr1, arr2):
     global lcslen
